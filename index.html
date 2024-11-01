@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Mira este gatito!</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f8ff;
+            font-family: Arial, sans-serif;
+        }
+        img {
+            width: 300px;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #ffcccb;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #ff9999;
+        }
+    </style>
+</head>
+<body>
+
+<h1>¡Mira este gatito!</h1>
+<img id="catImage" src="" alt="Gato" />
+<button id="newCatButton">Mostrar otro gato</button>
+
+<script>
+    const catImage = document.getElementById('catImage');
+    const newCatButton = document.getElementById('newCatButton');
+
+    function fetchCatImage() {
+        fetch('https://api.thecatapi.com/v1/images/search')
+            .then(response => response.json())
+            .then(data => {
+                catImage.src = data[0].url; // Asignar la URL de la imagen del gato
+            })
+            .catch(error => console.error('Error al obtener la imagen del gato:', error));
+    }
+
+    // Cargar una imagen de gato al inicio
+    fetchCatImage();
+
+    // Cambiar la imagen al hacer clic en el botón
+    newCatButton.addEventListener('click', fetchCatImage);
+</script>
+
+</body>
+</html>
